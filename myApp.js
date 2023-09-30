@@ -12,6 +12,7 @@ let ninetyDaysInSeconds = 90 *24 * 60 * 60;
 let timeInSeconds = ninetyDaysInSeconds;
 app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));        //forces browsers to access site with HTTPS only
 app.use(helmet.dnsPrefetchControl());              //prevents browsers from storing DNS records for added security in exchange for performance
+app.use(helmet.noCache());                         //prevents caching, ensuring clients always use the newest version of the site, in exchange for performance
 
 
 
