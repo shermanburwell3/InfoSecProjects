@@ -1,16 +1,18 @@
 const express = require('express');
 const app = express();
 const helmet = require('helmet');
-app.use(helmet.hidePoweredBy());
-app.use(helmet.frameguard({action: 'deny'}));
-app.use(helmet.xssFilter());
-app.use(helmet.noSniff());
-app.use(helmet.ieNoOpen());
+app.use(helmet.hidePoweredBy());                   //removes "X-Powered-By" header
+app.use(helmet.frameguard({action: 'deny'}));      //prevents <frame> and <iframe> clickjacking
+app.use(helmet.xssFilter());                       //mitigates risk of cross site scripting (XSS) attacks
+app.use(helmet.noSniff());                         //avoids inferring the Response MIME Type   
+app.use(helmet.ieNoOpen());                        //prevents IE from opening untrusted HTML    
 
 //converting 90 days into seconds.
 let ninetyDaysInSeconds = 90 *24 * 60 * 60;
 let timeInSeconds = ninetyDaysInSeconds;
-app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));
+app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));        //forces browsers to access site with HTTPS only
+app.use(helmet.dnsPrefetchControl());              //prevents browsers from storing DNS records for added security in exchange for performance
+
 
 
 
