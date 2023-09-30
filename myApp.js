@@ -7,6 +7,10 @@ app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
 app.use(helmet.ieNoOpen());
 
+//converting 90 days into seconds.
+let ninetyDaysInSeconds = 90 *24 * 60 * 60;
+let timeInSeconds = ninetyDaysInSeconds;
+app.use(helmet.hsts({maxAge: timeInSeconds, force: true}));
 
 
 
